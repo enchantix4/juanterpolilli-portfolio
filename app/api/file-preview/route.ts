@@ -13,50 +13,14 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid file path' }, { status: 400 })
     }
 
-    // Handle portfolio images (works in both dev and production)
+    // Handle portfolio images - return error to force using direct static paths
+    // Portfolio images should be accessed directly via /images/portfolio/... 
+    // This avoids the 250MB serverless function limit on Vercel
     if (filePath.startsWith('portfolio:')) {
-      const pathParts = filePath.replace('portfolio:', '').split('/')
-      const portfolioName = pathParts[0]
-      const fileName = pathParts.slice(1).join('/')
-      const publicPath = join(process.cwd(), 'public', 'images', 'portfolio', portfolioName, fileName)
-
-      // Check if it's an image file
-      const ext = extname(fileName).toLowerCase()
-      if (!IMAGE_EXTENSIONS.includes(ext)) {
-        return NextResponse.json({ error: 'Not an image file' }, { status: 400 })
-      }
-
-      try {
-        const fileBuffer = await readFile(publicPath)
-        
-        // Determine content type based on extension
-        const contentTypeMap: { [key: string]: string } = {
-          '.jpg': 'image/jpeg',
-          '.jpeg': 'image/jpeg',
-          '.png': 'image/png',
-          '.gif': 'image/gif',
-          '.bmp': 'image/bmp',
-          '.webp': 'image/webp',
-          '.svg': 'image/svg+xml',
-          '.ico': 'image/x-icon',
-          '.tiff': 'image/tiff',
-          '.tif': 'image/tiff',
-        }
-        
-        const contentType = contentTypeMap[ext] || 'application/octet-stream'
-        
-        return new NextResponse(fileBuffer, {
-          headers: {
-            'Content-Type': contentType,
-            'Cache-Control': 'public, max-age=3600',
-          },
-        })
-      } catch (err: any) {
-        if (err.code === 'ENOENT') {
-          return NextResponse.json({ error: 'File not found' }, { status: 404 })
-        }
-        throw err
-      }
+      return NextResponse.json({ 
+        error: 'Portfolio images should be accessed via static paths',
+        message: 'Use /images/portfolio/... instead of /api/file-preview for portfolio images'
+      }, { status: 400 })
     }
 
     // Only allow local file system access in development

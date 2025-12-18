@@ -510,7 +510,9 @@ export default function LinkFolderModal({
                       {isImage && (
                         <div className="mt-2 border border-white/10 rounded overflow-hidden">
                           <img
-                            src={`/api/file-preview?path=${encodeURIComponent(item.path)}`}
+                            src={item.path.startsWith('portfolio:') 
+                              ? `/images/portfolio/${item.path.replace('portfolio:', '').replace(/^\/+/, '')}`
+                              : `/api/file-preview?path=${encodeURIComponent(item.path)}`}
                             alt={item.name}
                             className="w-full h-auto max-h-[400px] object-contain"
                             onError={(e) => {
@@ -518,7 +520,7 @@ export default function LinkFolderModal({
                               const target = e.target as HTMLImageElement
                               const parent = target.parentElement
                               if (parent) {
-                                parent.innerHTML = '<p class="p-2 text-xs text-center opacity-70">Image preview not available in production</p>'
+                                parent.innerHTML = '<p class="p-2 text-xs text-center opacity-70">Image preview not available</p>'
                               }
                             }}
                           />
