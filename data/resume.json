@@ -1,0 +1,51 @@
+[
+  {
+    "roleTitle": "Art Director & Stylist — Lela Boutique",
+    "shortDescription": "Led the creative direction and styling of a branded photoshoot for Lela Boutique. Delivered concept development, look styling, shot planning, and project management, crafting a visual narrative that elevated brand identity.",
+    "skills": ["Art Direction", "Styling", "Creative Concepting", "Photoshoot Production", "Brand Storytelling"],
+    "links": ["portfolio:lela"]
+  },
+  {
+    "roleTitle": "Copywriter",
+    "shortDescription": "Created persuasive, high-impact copy for digital campaigns, brand messaging, product positioning, and social content. Specialized in tone creation and culturally nuanced voice systems.",
+    "skills": ["Copywriting", "Brand Voice", "Messaging", "Conversion Strategy"],
+    "links": ["https://www.vabble.io/resources"]
+  },
+  {
+    "roleTitle": "Media Buyer",
+    "shortDescription": "Planned and managed paid advertising strategies across digital channels, optimizing budget allocation and performance outcomes with creative testing and analytics.",
+    "skills": ["Paid Media Strategy", "Performance Marketing", "Campaign Optimization"],
+    "links": [
+      "https://www.dazeddigital.com/beauty/article/52432/1/comme-des-garcons-rouge-fragrance-is-a-seductive-escape-from-mundanity",
+      "https://www.campaignlive.co.uk/article/campaign-media-awards-winners-2022-fashion-beauty/1751856"
+    ]
+  },
+  {
+    "roleTitle": "Marketing Consultant",
+    "shortDescription": "Developed marketing strategy frameworks for early-stage brands, advising on positioning, organic growth, audience strategy, and launch planning. Two pieces were featured as number one article in Glass magazine Hong Kong and UK.",
+    "skills": ["Marketing Strategy", "Go-To-Market", "Brand Positioning"],
+    "links": [
+      "https://theglassmagazine.com/glass-speaks-to-victoria-grant-the-british-milliner-crafting-timeless-narratives-between-traditional-artistry-and-modern-flair/",
+      "https://theglassmagazine.com/glass-speaks-to-canto-primo-a-collective-that-seamlessly-blends-art-fashion-and-sustainability/"
+    ]
+  },
+  {
+    "roleTitle": "Art Director — JoyntPay",
+    "shortDescription": "Handled creative direction for JoyntPay, developing brand identity, visual language, and tone of voice. Led copywriting for audience messaging, created digital assets for campaigns, and produced audio-visual ads to support digital marketing execution.",
+    "skills": ["Art Direction", "Brand Identity", "Copywriting", "Creative Direction", "Digital Marketing", "Visual Design"],
+    "links": ["portfolio:joynt"]
+  },
+  {
+    "roleTitle": "Founder & Artist — Alba Rari",
+    "shortDescription": "Launched Alba Rari as a music project, overseeing full creative direction, songwriting, production, and visual identity. Released debut album ITCH, handling branding, marketing assets, and campaign strategy end-to-end.",
+    "skills": ["Artistry", "Creative Direction", "Brand Identity", "Music Creation", "Concept Development", "Storytelling", "Music Release"],
+    "links": ["https://artists.landr.com/ITCH"]
+  },
+  {
+    "roleTitle": "Music Producer & Scoring",
+    "shortDescription": "Produced original tracks with a genre-fluid sound, providing production for releases and agency-aligned commercial projects including sync and campaign scoring. Created tailored music compositions for visual content and campaigns, focusing on emotional tone, narrative fit, and brand sound identity.",
+    "skills": ["Music Production", "Audio Design", "A&R", "Sound Direction", "Scoring", "Sound Branding", "Story-Driven Composition"],
+    "links": ["https://soundcloud.com/alba-rarixx"]
+  }
+]
+
