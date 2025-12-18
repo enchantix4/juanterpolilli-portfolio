@@ -9,6 +9,9 @@ interface FolderItem {
   path: string
 }
 
+// Mark this route as dynamic since it uses request.json()
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: NextRequest) {
   try {
     const { folderPath } = await request.json()
