@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { readdir, stat } from 'fs/promises'
 import { join } from 'path'
+import portfolioManifest from '../../../data/portfolio-manifest.json'
 
 interface FolderItem {
   name: string
@@ -17,60 +18,41 @@ export async function POST(request: NextRequest) {
     }
 
     // Handle portfolio folders (works in both dev and production)
+    // Use static manifest instead of reading directory to avoid file tracing
     if (folderPath.startsWith('portfolio:')) {
       const pathParts = folderPath.replace('portfolio:', '').split('/')
       const portfolioName = pathParts[0]
       const subPath = pathParts.slice(1).join('/')
-      const publicPath = join(process.cwd(), 'public', 'images', 'portfolio', portfolioName, subPath)
       
-      try {
-        const items: FolderItem[] = []
-        const entries = await readdir(publicPath)
-
-        for (const entry of entries) {
-          // Skip hidden files and non-image files
-          if (entry.startsWith('.')) continue
-
-          const fullPath = join(publicPath, entry)
-          try {
-            const stats = await stat(fullPath)
-            if (stats.isFile()) {
-              // Only include image files
-              const ext = entry.toLowerCase()
-              if (['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.svg', '.ico', '.tiff', '.tif'].some(e => ext.endsWith(e))) {
-                items.push({
-                  name: entry,
-                  type: 'file',
-                  path: subPath ? `portfolio:${portfolioName}/${subPath}/${entry}` : `portfolio:${portfolioName}/${entry}`
-                })
-              }
-            } else if (stats.isDirectory()) {
-              items.push({
-                name: entry,
-                type: 'folder',
-                path: subPath ? `portfolio:${portfolioName}/${subPath}/${entry}` : `portfolio:${portfolioName}/${entry}`
-              })
-            }
-          } catch (err) {
-            continue
-          }
-        }
-
-        // Sort: folders first, then files, both alphabetically
-        items.sort((a, b) => {
-          if (a.type !== b.type) {
-            return a.type === 'folder' ? -1 : 1
-          }
-          return a.name.localeCompare(b.name)
-        })
-
-        return NextResponse.json({ items })
-      } catch (err: any) {
-        if (err.code === 'ENOENT') {
-          return NextResponse.json({ error: 'Portfolio folder not found' }, { status: 404 })
-        }
-        throw err
+      // Use static manifest to avoid file system reads that trigger file tracing
+      const manifest = portfolioManifest as Record<string, string[]>
+      const portfolioFiles = manifest[portfolioName]
+      
+      if (!portfolioFiles) {
+        return NextResponse.json({ error: 'Portfolio folder not found' }, { status: 404 })
       }
+
+      const items: FolderItem[] = []
+      
+      // If there's a subpath, we only support root level for now
+      if (!subPath) {
+        // Return all files in the portfolio folder
+        portfolioFiles.forEach((fileName) => {
+          items.push({
+            name: fileName,
+            type: 'file',
+            path: `portfolio:${portfolioName}/${fileName}`
+          })
+        })
+      } else {
+        // Subpath not supported with manifest approach - return empty
+        return NextResponse.json({ items: [] })
+      }
+
+      // Sort files alphabetically
+      items.sort((a, b) => a.name.localeCompare(b.name))
+
+      return NextResponse.json({ items })
     }
 
     // Only allow local file system access in development
