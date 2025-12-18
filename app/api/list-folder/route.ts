@@ -11,6 +11,7 @@ interface FolderItem {
 
 // Mark this route as dynamic since it uses request.json()
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export async function POST(request: NextRequest) {
   try {

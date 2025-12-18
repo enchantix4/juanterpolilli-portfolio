@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { exec } from 'child_process'
 
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 export async function POST(request: NextRequest) {
   // Only allow folder opening in development/local environment
   if (process.env.NODE_ENV === 'production') {

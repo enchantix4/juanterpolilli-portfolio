@@ -6,11 +6,13 @@ const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.sv
 
 // Mark this route as dynamic since it uses searchParams
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export async function GET(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams
-    const filePath = searchParams.get('path')
+    // Access searchParams in a way that's clearly dynamic
+    const url = new URL(request.url)
+    const filePath = url.searchParams.get('path')
     
     if (!filePath || typeof filePath !== 'string') {
       return NextResponse.json({ error: 'Invalid file path' }, { status: 400 })
